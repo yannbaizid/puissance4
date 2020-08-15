@@ -1,0 +1,173 @@
+package fr.ibformation.bo;
+
+import java.util.Arrays;
+
+public class Grille {
+	private final int NBCOLONNE = 7;
+	private final int NBLIGNE = 6;
+	private final int NBPIONSGAGNANTS = 4;
+	int[][] grille;
+
+	public Grille() {
+		grille = new int[NBCOLONNE][NBLIGNE];
+		for (int i = 0; i < NBCOLONNE; i++) {
+			for (int j = 0; i < NBLIGNE; i++) {
+
+				grille[i][j] = 0;
+			}
+		}
+
+	}
+
+	public Grille(int[][] grille) {
+		super();
+		this.grille = grille;
+	}
+
+	/**
+	 * @return the grille
+	 */
+	public int[][] getGrille() {
+		return grille;
+	}
+
+	/**
+	 * @param grille the grille to set
+	 */
+	public void setGrille(int[][] grille) {
+		this.grille = grille;
+	}
+
+	/**
+	 * @return the nbColonne
+	 */
+	public int getNbColonne() {
+		return NBCOLONNE;
+	}
+
+	/**
+	 * @return the nbLigne
+	 */
+	public int getNbLigne() {
+		return NBLIGNE;
+	}
+
+	/**
+	 * @return the nBPIONSGAGNANTS
+	 */
+	public int getNBPIONSGAGNANTS() {
+		return NBPIONSGAGNANTS;
+	}
+
+	@Override
+	public String toString() {
+		String grilleToString = "";
+		for (int i = 0; i < this.NBLIGNE; i++) {
+			for (int j = 0; j < this.NBCOLONNE; j++) {
+
+				grilleToString += this.grille[j][this.NBLIGNE - i - 1] + " | ";
+			}
+			grilleToString += "\n";
+		}
+		return grilleToString;
+	}
+
+	/**
+	 * PlacerPion(int colonne, int joueur) permet au joueur "joueur" de placer un pion dans la colonne "colonne"
+	 * La méthode vérifie s'il y a une case vide dans la colonne et place le pion dans la ligne la plus basse disponible.
+	 * @param colonne
+	 * @param joueur
+	 * @return true si la colonne possède une case vide et que le pion a été placé. false si la colonne est déjà pleine.
+	 */
+	public Boolean PlacerPion(int colonne, int joueur) {
+		Boolean pionPlace = false;
+		for (int i = 0; i < this.NBLIGNE; i++) {
+			if (this.grille[colonne][i] == 0 && pionPlace == false) {
+				this.grille[colonne][i] = joueur;
+				pionPlace = true;
+			}
+		}
+		return pionPlace;
+	}
+
+	
+	/**
+	 * Vérifie s'il y a suffisament de pions consécutifs dans la grille pour déclencher la victoire.
+	 * @return le nombre du joueur gagnant. 0 s'il n'y a pas de victoire.
+	 */
+	public int VerifierVictoire() {
+		int joueurgagnant=0;
+		for (int i=0;i<this.NBLIGNE;i++) {
+			if (VerifierLigne(i) != 0) {
+				return VerifierLigne(i);
+			}
+		}
+		for (int i=0;i<this.NBCOLONNE;i++) {
+			if (VerifierColonne(i) != 0) {
+				return VerifierColonne(i);
+			}
+		}
+		
+		return 0;
+	}
+
+	public int VerifierVictoire(int colonne, int ligne) {
+		//TODO
+		return 0;
+	}
+
+	/**
+	 * VerifierLigne permet de vérifier s'il y a suffisament de pions consécutifs dans une ligne donnée pour déclencher la victoire.
+	 * @param colonne= le numero de la ligne en question
+	 * @return 0 s'il n'y a pas de victoire. Le numero du joueur gagnant s'il y a victoire.
+	 */
+	public int VerifierLigne(int ligne) {
+		int pionsConsecutifs = 0;
+		int joueurgagnant=0;
+		for (int j = 0; j < this.NBCOLONNE; j++) {
+			if (this.grille[j][ligne] != 0) {
+				pionsConsecutifs = 1;
+				while (this.grille[j + 1][ligne] == this.grille[j][ligne]) {
+					pionsConsecutifs++;
+					if (pionsConsecutifs == NBPIONSGAGNANTS) {
+						joueurgagnant=this.grille[j][ligne];
+						System.out.println("victoire du joueur" + joueurgagnant);
+						return joueurgagnant;
+					}
+					j++;
+				}
+
+			}
+
+		}
+		return joueurgagnant;
+	}
+
+	
+	/**
+	 * VerifierColonne permet de vérifier s'il y a suffisament de pions consécutifs dans une colonne donnée pour déclencher la victoire.
+	 * @param colonne= le numero de la colonne en question
+	 * @return 0 s'il n'y a pas de victoire. le numero du joueur gagnant s'il y a victoire.
+	 */
+public int VerifierColonne(int colonne) {
+	int pionsConsecutifs = 0;
+	int joueurgagnant=0;
+	for (int j = 0; j < this.NBLIGNE-3; j++) {
+		if (this.grille[colonne][j] != 0) {
+			pionsConsecutifs = 1;
+			while (this.grille[colonne][j+1] == this.grille[colonne][j]) {
+				pionsConsecutifs++;
+				if (pionsConsecutifs == NBPIONSGAGNANTS) {
+					joueurgagnant=this.grille[colonne][j];
+					System.out.println("victoire du joueur" + joueurgagnant);
+					return joueurgagnant;
+				}
+				j++;
+			}
+			
+		}
+		
+	}
+	return joueurgagnant;
+}
+}

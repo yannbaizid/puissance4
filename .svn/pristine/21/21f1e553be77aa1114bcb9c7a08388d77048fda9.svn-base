@@ -1,0 +1,47 @@
+package fr.ibformation.ihm;
+
+import java.awt.Color;
+import java.awt.Graphics;
+
+import javax.swing.JPanel;
+
+public class FenetreJeu extends JPanel {
+
+	private int posX = 20;
+	private int posY = 20;
+
+	public void paintComponent(Graphics g) {
+
+		g.setColor(Color.RED);
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 6; j++) {
+				if ((i + j) % 2 == 0) {
+					g.setColor(Color.ORANGE);
+				} else {
+					g.setColor(Color.RED);
+				}
+				g.fillOval((i * 65) + posX, (j * 65) + posY, 50, 50);
+			}
+		}
+		// g.fillOval(20, 20, 75, 75);
+		// g.fillOval(posX, posY, 50, 50);
+
+	}
+
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
+
+}

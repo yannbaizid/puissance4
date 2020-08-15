@@ -1,0 +1,13 @@
+package fr.ibformation;
+
+import fr.ibformation.bo.Grille;
+
+public class Launcher {
+
+	public static void main(String[] args) {
+		System.out.println("hello cest Issa");
+		Grille grille=new Grille();
+		System.out.println(grille);
+	}
+
+}

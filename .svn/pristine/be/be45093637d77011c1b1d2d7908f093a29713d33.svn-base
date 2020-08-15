@@ -1,0 +1,22 @@
+package fr.ibformation;
+
+import javax.swing.JFrame;
+
+import fr.ibformation.bo.Grille;
+import fr.ibformation.ihm.Fenetre;
+
+public class Launcher {
+
+	
+	public static void main(String[] args) {
+		
+		JFrame fenetre = new JFrame();
+		Fenetre fen = new Fenetre();
+	    
+		System.out.println("hello cest Issa");
+		Grille grille=new Grille();
+		System.out.println(grille);
+		
+	}
+
+}

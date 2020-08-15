@@ -1,0 +1,58 @@
+package fr.ibformation.ihm;
+
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JPanel;
+
+import fr.ibformation.service.Puissance4Service;
+
+public class GrillePanel extends JPanel implements ActionListener {
+	private PionButton[][] cases;
+	private Puissance4Service puissance4Service = new Puissance4Service();
+
+	public GrillePanel(int nbColonne, int nbLigne, String joueur1, String joueur2) {
+		//initialisation du nom des joueurs:
+		puissance4Service.setJoueur1(joueur1);
+		puissance4Service.setJoueur2(joueur2);
+		//initialisation de la grille:
+		cases = new PionButton[nbColonne][nbLigne];
+		this.setSize(500, 500);
+		this.setLayout(new GridLayout(nbLigne, nbColonne));
+		this.setVisible(true);
+		for (int i = 0; i < nbColonne; i++) {
+			for (int j = 0; j < nbLigne; j++) {
+				PionButton pion = new PionButton(i, j);
+				pion.addActionListener(this);
+				cases[i][j] = pion;
+			}
+		}
+		for (int i = (nbLigne - 1); i >= 0; i--) {
+			for (int j = (nbColonne - 1); j >= 0; j--) {
+				this.add(cases[j][i]);
+			}
+
+		}
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		PionButton pion = (PionButton) e.getSource();
+		System.out.println("ligne:" + pion.getLigne() + "colonne:" + pion.getColonne());
+		if (puissance4Service.PlacerPion(cases, pion.getColonne(), pion.getLigne())) {
+			puissance4Service.VerifierVictoire(cases, pion.getColonne(),pion.getLigne());
+			puissance4Service.setJoueur((puissance4Service.getJoueur()%2)+1);
+		}
+		
+		if (puissance4Service.VerifierVictoire(cases, pion.getColonne(),pion.getLigne())!=0) {
+			
+			///Lancer la fenetre de victoire...
+		}
+
+	
+
+	}
+
+}

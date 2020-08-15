@@ -1,0 +1,34 @@
+package fr.ibformation;
+
+import java.util.Scanner;
+
+import fr.ibformation.bo.Grille;
+
+public class Puissance4 {
+	private static Grille grille = new Grille();
+	private static int joueur = 2;
+	private static int colonneJouee=-1;
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("coolos!");
+		
+		do {
+			//changer de joueur
+			joueur=joueur%2+1;
+			//afficher grille
+			System.out.println(grille);
+			//demander colonne
+			do {
+				System.out.println("joueur"+joueur+" a toi de choisir une colonne");
+				colonneJouee=new Scanner(System.in).nextInt();
+			}
+			while (!grille.PlacerPion(colonneJouee, joueur));
+
+		}
+		while (grille.VerifierVictoire()==0);
+		System.out.println(grille);
+		System.out.println("joueur"+joueur+"a gaaaannngné!");
+	}
+
+}

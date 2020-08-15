@@ -1,0 +1,9 @@
+package fr.ibformation.dao;
+
+import fr.ibformation.bo.Grille;
+
+public interface GrilleDAO {
+
+	void createGrille(Grille grille);
+
+}

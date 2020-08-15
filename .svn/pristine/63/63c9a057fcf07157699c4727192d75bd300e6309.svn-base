@@ -1,0 +1,32 @@
+package fr.ibformation.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+
+import fr.ibformation.bo.Grille;
+
+public class GrilleDAOImpl implements GrilleDAO {
+
+	@Override
+	public void createGrille(Grille grille) {
+
+		try {
+			Connection cnx = DAOUtil.getConnexion();
+			String requete = "INSERT INTO Grille(valeur, joueur) VALUES(?,?);";
+			PreparedStatement pstmt = cnx.prepareStatement(requete);
+			//pstmt.setInt(1, valeur);
+			//pstmt.setInt(2, joueur);
+					
+			pstmt.executeUpdate();
+			
+			cnx.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	}
+
+

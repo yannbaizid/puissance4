@@ -1,0 +1,28 @@
+package fr.ibformation.ihm;
+
+import java.awt.Color;
+
+import javax.swing.JFrame;
+
+public class Fenetre extends JFrame {
+	//JPanel pan = new JPanel();
+	private FenetreJeu fenJ = new FenetreJeu();
+
+	
+	public Fenetre(String joueur1, String joueur2) {
+			
+		this.setSize(500,500);
+		this.setTitle("ma fenetre parfaite");
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		fenJ.setBackground(Color.ORANGE);
+		
+		//this.setContentPane(fenJ);
+		this.setContentPane(new GrillePanel(7,6,joueur1,joueur2));
+		
+		this.setVisible(true);
+	
+	}
+
+}

@@ -1,0 +1,77 @@
+package fr.ibformation.ihm;
+import javax.swing.*;
+
+import java.awt.event.*;
+import java.awt.*;
+
+class Victoire extends JFrame {
+	FenetreJeu fenetrePrincipal; 
+
+	// constructeur
+	public Victoire(int i, FenetreJeu fenetreJeu) {
+		
+		this.setTitle("Victoire");
+		
+		
+
+		// référence vers l'IHM
+		this.fenetrePrincipal = fenetreJeu;
+
+		// écouteur pour le bouton nouvelle partie
+		ActionListener listener1 = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// on réinititalise le programme
+				fenetrePrincipal.OnInit();
+				setVisible(false);
+			}
+		};
+
+		// création des boutons nouvelle partie et quitter
+		 
+		JButton boutonPartie = new JButton("Nouvelle partie");
+		
+
+		// ajout des écouteurs
+		boutonPartie.addActionListener(listener1);
+	
+
+		// Création du JPanel qui contiendra les boutons et ajout des boutons
+		JPanel boutonAjout = new JPanel();
+		boutonAjout.setBackground(Color.red);
+		boutonAjout.add(boutonPartie);
+
+
+		String nom = "";
+
+		// Création des JLabel contenant le texte de victoire
+		if (i == 1)
+			nom = fenetrePrincipal.joueur.joueur1;
+		else
+			nom = fenetrePrincipal.joueur.joueur2;
+
+		JLabel jlabel = new JLabel("Félicitations, vous avez gagné !");
+
+		// Création des JPanel
+		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel2 = new JPanel(new BorderLayout());
+		panel2.setBackground(Color.red);
+		
+		JLabel image1 = new JLabel( new ImageIcon( "‪‪C://Users/IB/Desktop/ImagePuissance/artifice.jpg"));
+		panel2.add(image1);
+		panel2.setVisible(true);
+
+	
+		panel2.add(jlabel, BorderLayout.CENTER);
+		panel2.add(boutonAjout, BorderLayout.SOUTH);
+
+		// réunion des deux JPanel
+		panel.add(panel2, BorderLayout.CENTER);
+		
+		
+		this.setLocationRelativeTo(null);
+		jlabel.setSize(500, 500);
+		// affectation du JPanel à la JFrame
+		this.getContentPane().add(panel);
+	}
+	
+}

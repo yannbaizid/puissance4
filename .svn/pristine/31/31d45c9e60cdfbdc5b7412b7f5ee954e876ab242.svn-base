@@ -1,0 +1,76 @@
+package fr.ibformation.bo;
+
+import java.util.Arrays;
+
+public class Grille {
+	private final int nbColonne = 7;
+	private final int nbLigne = 6;
+	int[][] grille;
+
+	public Grille() {
+		grille = new int[nbColonne][nbLigne];
+		for (int i = 0; i < nbColonne; i++) {
+			for (int j = 0; i < nbLigne; i++) {
+
+				grille[i][j] = 0;
+			}
+		}
+
+	}
+	
+	public Grille(int[][] grille) {
+		super();
+		this.grille=grille;
+	}
+
+	/**
+	 * @return the grille
+	 */
+	public int[][] getGrille() {
+		return grille;
+	}
+
+	/**
+	 * @param grille the grille to set
+	 */
+	public void setGrille(int[][] grille) {
+		this.grille = grille;
+	}
+
+	/**
+	 * @return the nbColonne
+	 */
+	public int getNbColonne() {
+		return nbColonne;
+	}
+
+	/**
+	 * @return the nbLigne
+	 */
+	public int getNbLigne() {
+		return nbLigne;
+	}
+
+	@Override
+	public String toString() {
+		String grilleToString="";
+		for (int i = 0; i < this.nbLigne; i++) {
+			for (int j = 0; j < this.nbColonne; j++) {
+
+				grilleToString+=this.grille[j][i] + " | ";
+			}
+			grilleToString+="\n";
+		}
+		return grilleToString;
+	}
+	
+	public void PlacerPion  (int colonne, int joueur) {
+		
+	}
+	
+	public int VerifierVictoire () {
+		return 0;
+	}
+	
+
+}

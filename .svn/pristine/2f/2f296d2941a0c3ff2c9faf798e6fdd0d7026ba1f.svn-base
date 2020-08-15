@@ -1,0 +1,41 @@
+package fr.ibformation.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class GrilleDAOImpl implements GrilleDAO {
+
+
+	@Override
+	public void createGrille(int[] grille) {
+
+		try {
+			
+		for (int i = 0; i < grille.length; i++) {
+			
+		
+			Connection cnx = DAOUtil.getConnexion();
+			String requete = "UPDATE Grille SET description =? WHERE id_position =?;";
+			PreparedStatement pstmt = cnx.prepareStatement(requete);
+			pstmt.setInt(1, grille[i]);
+			pstmt.setInt(2,i);
+					
+			pstmt.executeUpdate();
+			
+			cnx.close();
+		}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		
+	}
+		
+	}
+	@Override
+	public int[] getGrille() {
+		int[] grille;
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

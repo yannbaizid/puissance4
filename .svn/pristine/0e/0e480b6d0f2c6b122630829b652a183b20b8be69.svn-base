@@ -1,0 +1,37 @@
+package fr.ibformation.ihm;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import fr.ibformation.service.Puissance4Service;
+
+public class Fenetre extends JFrame {
+	//JPanel pan = new JPanel();
+	private FenetreJeu fenJ = new FenetreJeu();
+	public Puissance4Service puissance4Service=new Puissance4Service();
+	
+	public Fenetre(String joueur1, String joueur2) {
+			
+		this.setSize(500,600);
+		this.setTitle("ma fenetre parfaite");
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		fenJ.setBackground(Color.ORANGE);
+		
+		//this.setContentPane(fenJ);
+		BorderLayout borderLayout = new BorderLayout();
+		JPanel container = new JPanel();
+		this.setContentPane(container);
+		container.setLayout(borderLayout);
+		container.add(new GrillePanel(puissance4Service,7,6,joueur1,joueur2));
+		container.add(new MenuPanel(puissance4Service), BorderLayout.SOUTH);
+		
+		this.setVisible(true);
+	
+	}
+
+}

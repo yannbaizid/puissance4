@@ -1,0 +1,35 @@
+package fr.ibformation.ihm;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Fenetre extends JFrame {
+	//JPanel pan = new JPanel();
+	private FenetreJeu fenJ = new FenetreJeu();
+
+	
+	public Fenetre(String joueur1, String joueur2) {
+			
+		this.setSize(500,500);
+		this.setTitle("ma fenetre parfaite");
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		fenJ.setBackground(Color.ORANGE);
+		
+		//this.setContentPane(fenJ);
+		BorderLayout borderLayout = new BorderLayout();
+		JPanel container = new JPanel();
+		this.setContentPane(container);
+		container.setLayout(borderLayout);
+		container.add(new GrillePanel(7,6,joueur1,joueur2));
+		container.add(new MenuPanel(), BorderLayout.SOUTH);
+		
+		this.setVisible(true);
+	
+	}
+
+}

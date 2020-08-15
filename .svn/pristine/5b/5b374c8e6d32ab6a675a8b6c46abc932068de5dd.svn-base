@@ -1,0 +1,86 @@
+package fr.ibformation.bo;
+
+import java.util.Arrays;
+
+public class Grille {
+	private final int NBCOLONNE = 7;
+	private final int NBLIGNE = 6;
+	int[][] grille;
+
+	public Grille() {
+		grille = new int[NBCOLONNE][NBLIGNE];
+		for (int i = 0; i < NBCOLONNE; i++) {
+			for (int j = 0; i < NBLIGNE; i++) {
+
+				grille[i][j] = 0;
+			}
+		}
+
+	}
+
+	public Grille(int[][] grille) {
+		super();
+		this.grille = grille;
+	}
+
+	/**
+	 * @return the grille
+	 */
+	public int[][] getGrille() {
+		return grille;
+	}
+
+	/**
+	 * @param grille the grille to set
+	 */
+	public void setGrille(int[][] grille) {
+		this.grille = grille;
+	}
+
+	/**
+	 * @return the nbColonne
+	 */
+	public int getNbColonne() {
+		return NBCOLONNE;
+	}
+
+	/**
+	 * @return the nbLigne
+	 */
+	public int getNbLigne() {
+		return NBLIGNE;
+	}
+
+	@Override
+	public String toString() {
+		String grilleToString = "";
+		for (int i = 0; i < this.NBLIGNE; i++) {
+			for (int j = 0; j < this.NBCOLONNE; j++) {
+
+				grilleToString += this.grille[j][this.NBLIGNE - i - 1] + " | ";
+			}
+			grilleToString += "\n";
+		}
+		return grilleToString;
+	}
+
+	public Boolean PlacerPion(int colonne, int joueur) {
+		Boolean pionPlace = false;
+		for (int i = 0; i < this.NBLIGNE; i++) {
+			if (this.grille[colonne][i] == 0 && pionPlace == false) {
+				this.grille[colonne][i] = joueur;
+				pionPlace = true;
+			}
+		}
+		return pionPlace;
+	}
+
+	public int VerifierVictoire() {
+		return 0;
+	}
+
+	public int VerifierVictoire(int colonne, int ligne) {
+		return 0;
+	}
+
+}

@@ -1,0 +1,163 @@
+package fr.ibformation.ihm;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+
+import fr.ibformation.service.Puissance4Service;
+
+public class WelcomeScreen extends JFrame {
+
+	private Dimension dim = new Dimension(160, 50);
+	GridLayout gridLayout = new GridLayout(2, 1);
+	GridBagLayout gridBag = new GridBagLayout();
+
+	public WelcomeScreen() {
+		initContentPain();
+		initFenetre();
+	}
+
+	private void initFenetre() {
+		this.setSize(600, 400);
+		this.setLocationRelativeTo(null);
+		this.setTitle("Puissance 4");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
+
+	}
+
+	private void initContentPain() {
+
+		JPanel container = new JPanel();
+		container.setBackground(Color.WHITE);
+		container.setLayout(gridBag);
+		this.setContentPane(container);
+
+		JPanel panelBouton = new JPanel();
+		panelBouton.setLayout(gridLayout);
+		panelBouton.setBackground(Color.WHITE);
+		gridLayout.setVgap(6);
+		gridLayout.setHgap(6);
+
+		JPanel panelImage = new JPanel();
+		panelImage.setBackground(Color.WHITE);
+		// add image
+		try {
+			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+			InputStream input = classLoader.getResourceAsStream("Connect_Four.gif");
+			Image image = ImageIO.read(input);
+			Icon icon = new ImageIcon(image);
+			JLabel label = new JLabel(icon);
+			panelImage.add(label);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		ActionListener listen = new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				JFrame fenetreJoueur = new Joueur();
+				// On cache la fenetre d'acceuil après le click
+				setVisible(false);
+				fenetreJoueur.setVisible(true);
+				fenetreJoueur.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			}
+		};
+		ActionListener loadListener = new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Fenetre fen = new Fenetre("jean","claude");
+				PionButton[][] casesLoaded=new Puissance4Service().getGrille();
+				for (int i=0;i<7;i++) {
+					for (int j=0;j<6;j++) {
+						fen.getGrillePanel().getCases()[i][j].setForeground(casesLoaded[i][j].getForeground());
+					}
+				}
+				fen.repaint();
+				/*
+
+				JFrame error = new JFrame();
+				error.setSize(300, 100);
+				error.setLocationRelativeTo(null);
+				// On cache la fenetre d'acceuil après le click
+				error.add(new JLabel("Bientôt disponible!"));
+				error.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				error.setVisible(true);
+				*/
+			}
+		};
+
+		// création du bouton
+		// JButton bouton1 = new JButton("Let's go");
+
+		// ajout de l'écouteur
+		// bouton1.addActionListener(listen);
+
+		JButton boutonNewGame = new JButton("Nouvelle partie");
+		boutonNewGame.addActionListener(listen);
+		JButton boutonLoadGame = new JButton("Charger partie");
+		boutonLoadGame.addActionListener(loadListener);
+
+		boutonNewGame.setBackground(new Color(21, 215, 152));
+		boutonNewGame.setForeground(Color.WHITE);
+		boutonNewGame.setPreferredSize(dim);
+		boutonNewGame.setBorder(new RoundedBorder(30));
+		boutonNewGame.setFont(new Font("Arial", Font.PLAIN, 15));
+
+		boutonLoadGame.setBackground(new Color(21, 215, 152));
+		boutonLoadGame.setForeground(Color.WHITE);
+		boutonLoadGame.setPreferredSize(dim);
+		boutonLoadGame.setBorder(new RoundedBorder(30));
+		boutonLoadGame.setFont(new Font("Arial", Font.PLAIN, 15));
+
+		panelBouton.add(boutonNewGame);
+		panelBouton.add(boutonLoadGame);
+
+		container.add(panelImage);
+		container.add(panelBouton);
+
+	}
+
+	private class RoundedBorder implements Border {
+
+		private int radius;
+
+		RoundedBorder(int radius) {
+			this.radius = radius;
+		}
+
+		public Insets getBorderInsets(Component c) {
+			return new Insets(this.radius + 1, this.radius + 1, this.radius + 2, this.radius);
+		}
+
+		public boolean isBorderOpaque() {
+			return true;
+		}
+
+		public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+			g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+		}
+
+	}
+}
